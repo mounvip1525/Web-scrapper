@@ -19,9 +19,8 @@ for url in urls:
 
     soup=BeautifulSoup(html_page.content,'lxml')  #lxml is a very fast and reliable parser
     #print(soup.title) or
-    # title=soup.find('title').get_text()
-    # print(title)
-
+    #print(soup.find('title').get_text())
+    
     stock_title=soup.find_all('div',id='quote-header-info')[0].find('h1').get_text() #Static value retrieval
     current_price=soup.find_all('div',id='quote-header-info')[0].find('div',class_='My(6px) Pos(r) smartphone_Mt(6px)').find('span').get_text() #class is a keyword hence to extract the class value of a particular html tag we use class_
     # print(stock_title)
