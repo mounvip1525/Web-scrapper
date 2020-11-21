@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import csv
-
+import send_mail
 
 #To avoid bot request most websites usually have scripts. Here we use this header to mimic our request as a browser.
 header={'User Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36'}
@@ -41,3 +41,4 @@ for url in urls:
     time.sleep(5)
 
 csv_file.close()
+send_mail.send(filename='scrape.csv')
