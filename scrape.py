@@ -3,15 +3,19 @@ from bs4 import BeautifulSoup
 import time
 import csv
 import send_mail
+from datetime import date
+
+urls=['https://finance.yahoo.com/quote/GOOGL?p=GOOGL&.trsc=fin-srch','https://finance.yahoo.com/quote/JPM?p=JPM&.tsrc=fin-srch','https://finance.yahoo.com/quote/MSFT?p=MSFT&.tsrc=fin-srch','https://finance.yahoo.com/quote/AMZN?p=AMZN&.tsrc=fin-srch']
 
 #To avoid bot request most websites usually have scripts. Here we use this header to mimic our request as a browser.
 header={'User Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.66 Safari/537.36'}
 
-csv_file=open('scrape.csv','w')
+today_file=str(date.today())+ '.csv'
+
+csv_file=open(today_file,'w')
 csv_write=csv.writer(csv_file)
 csv_write.writerow(['Stock Title','Current Price','Previous Close','Open','Bid','Ask',"Day's Range",'52 Week Range','Volume','Avg. Volume'])
 
-urls=['https://finance.yahoo.com/quote/GOOGL?p=GOOGL&.trsc=fin-srch','https://finance.yahoo.com/quote/JPM?p=JPM&.tsrc=fin-srch','https://finance.yahoo.com/quote/MSFT?p=MSFT&.tsrc=fin-srch','https://finance.yahoo.com/quote/AMZN?p=AMZN&.tsrc=fin-srch']
 for url in urls:
     stock=[]
     html_page=requests.get(url,headers=header)
@@ -41,4 +45,4 @@ for url in urls:
     time.sleep(5)
 
 csv_file.close()
-send_mail.send(filename='scrape.csv')
+send_mail.send(filename=today_file)
